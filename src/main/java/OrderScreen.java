@@ -1,33 +1,38 @@
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class OrderScreen {
-  public void newOrder() {
+
+  public static void newOrder(Scanner scanner) {
     System.out.println("Please select from the following options: ");
     System.out.println(
         "1) Add Sandwich\n2) Add Drink\n3) Add Chips\n4) Checkout\n5) Cancel - Back to Home");
-    int userChoice = HomeScreen.scanner.nextInt();
-    if (userChoice == 1) {
-      // orderSandwich();
+    int userChoice = scanner.nextInt();
+    Sandwich sandwich;
+    switch (userChoice) {
+      case 1:
+        sandwich = Sandwich.createSandwich(scanner);
+       break;
+      case 2:
+      // addDrink();
+        break;
+      case 3:
+      //addChips();
+        break;
+      case 4:
+      //checkoutOrder();
+        break;
+      case 5:
+      //homeScreen();
+        break;
     }
   }
 
-  public void orderSandwich (String bread, int size, ArrayList<String> toppings, boolean toasted) {
-    System.out.println("What type of bread would you like?");
-    System.out.println("1) White\n2) Wheat\n3) Rye\n4) Wrap");
-    bread = HomeScreen.scanner.nextLine();
 
-    // do we need a string builder here to add this sandwich to a file? the sandwich will eventually
-    // become an object
-    System.out.println("What size would you like?");
-    System.out.println("1) 4\"   $5.50\n" +
-                    "2) 8\"   $7.00\n" +
-                    "3) 12\"   $8.50");
-    size = HomeScreen.scanner.nextInt();
-    String strSize = Integer.toString(size);
+  public void getPrice(){}
 
-    System.out.println("Please select from the following toppings:");
-    System.out.println("");
-
-    Sandwich sando = new Sandwich(bread, strSize, );
   }
-}
+
+
+
+
