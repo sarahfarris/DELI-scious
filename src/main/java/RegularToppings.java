@@ -1,17 +1,22 @@
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class RegularToppings implements Topping {
   String type;
+  static ArrayList<Topping> regularToppings;
+  static Scanner scanner = new Scanner(System.in);
 
   public RegularToppings(String type) {
     this.type = type;
   }
 
-  public static void getRegularToppings() {
-    ArrayList<Topping> regularToppings = new ArrayList<>();
+  public static ArrayList<Topping> getRegularToppings() {
+    return regularToppings;
   }
 
-  public ArrayList<String> setRegularToppings() {
+  //not sure if the arguments are correct in this case because I am not sure if the return is going to be a string or an array list of regular toppings
+  public ArrayList<String> setRegularToppings(ArrayList<Topping> toppings) {
+    regularToppings = toppings; //took away this.
     ArrayList<String> regularToppings = new ArrayList<>();
     regularToppings.add("lettuce");
     regularToppings.add("peppers");
@@ -52,6 +57,12 @@ public class RegularToppings implements Topping {
   @Override
   public String toString() {
     return "RegularToppings{" + "type='" + type + '\'' + '}';
+  }
+
+  public static void printRegularToppings() {
+    for (int i = 0; i < regularToppings.size(); i++) {
+      System.out.println(i);
+    }
   }
 
   public static void selectRegularToppings() {
