@@ -16,7 +16,7 @@ public class PaidTopping implements Topping {
 
   public static ArrayList<Topping> getPaidToppings() {
     if (paidToppings == null || paidToppings.isEmpty()) {
-      setPaidToppings(); //initializing
+      setPaidToppings(); // initializing
     }
     return paidToppings;
   }
@@ -67,8 +67,7 @@ public class PaidTopping implements Topping {
   }
 
   public static void setPaidToppings() {
-//    paidToppings = toppings; //took away this.
-    paidToppings = new ArrayList<>();
+    paidToppings = new ArrayList<>(); // list initialization
     paidToppings.add(new PaidTopping("steak", "4\"", 1.00));
     paidToppings.add(new PaidTopping("steak", "8\"", 2.00));
     paidToppings.add(new PaidTopping("steak", "12\"", 3.00));
@@ -141,15 +140,65 @@ public class PaidTopping implements Topping {
   }
 
   public static void printPaidToppings() {
+    getPaidToppings();
+    System.out.println("Available paid toppings: ");
+    if (paidToppings == null || paidToppings.isEmpty()) {
+      setPaidToppings(); // initializing
+    }
+    if (paidToppings.isEmpty()) {
+      System.out.println("Initialization failed.");
+      return;
+    }
+
     for (int i = 0; i < paidToppings.size(); i++) {
-      System.out.println(i);
+      System.out.println(
+          (i + 1)
+              + ". "
+              + paidToppings.get(
+                  i)); // prints the index to allow user selection. looked this up on google and
+      // don't understand all that well but will look up later to clarify
     }
   }
 
   public static void selectPaidToppings() {
-    System.out.println("Please select from the following paid toppings:");
     printPaidToppings();
-    String userPaidTopping = scanner.nextLine();
-    //create a string builder to be able to add multiple toppings
+    boolean addingToppings = true;
+
+    while (addingToppings) {
+      System.out.println(
+          "Please select from the following paid toppings by selecting the corresponding number:");
+      int choice = scanner.nextInt();
+      scanner.nextLine(); // consume line
+      try {
+        if (choice > 0) {
+          Topping selectedTopping =
+              paidToppings.get(
+                  choice
+                      - 1); // translates menu numbering (starting with 1) to java indexing
+                            // (starting with 0)
+          System.out.println(
+              "You selected: "
+                  + selectedTopping.getType()
+                  + selectedTopping.getSize()
+                  + " for $"
+                  + selectedTopping.getPrice());
+//          Sandwich.addTopping(null); // do I need to pass in the selectedTopping as a parameter?
+          System.out.println("Would you like to add another topping?\nY - yes\nN - no");
+          String confirmation = scanner.nextLine();
+          if (!confirmation.equalsIgnoreCase("y")) {
+            addingToppings = false;
+          }
+        } else if (choice == 0) { // will this let me end the loop?
+          System.out.println("Finished selecting toppings");
+          addingToppings = false;
+        }
+
+      } catch (IndexOutOfBoundsException e) {
+        System.out.println(
+            "Invalid input. Please select a number between 0 and " + paidToppings.size() + ".");
+      }
+      // TODO: calculate cost of sandwich and display summary, have ability to go to home screen to
+      // add other items to order
+    }
   }
 }

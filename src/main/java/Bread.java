@@ -50,25 +50,27 @@ public class Bread implements Topping {
   }
 
 
-  public static void selectSize(Scanner scanner) {
-    System.out.println("What size would you like?");
-    System.out.println("1) 4\"   $5.50\n2) 8\"   $7.00\n3) 12\"   $8.50");
-    int userChoice = scanner.nextInt();
-    scanner.nextLine(); // consume line
-    double size = userChoice;
-    if (userChoice == 1) {
-      size = 4.0;
-    } else if (userChoice == 2) {
-      size = 8.0;
-    } else if (userChoice == 3){
-      size = 12.0;
-    } else {
-      System.out.println("Invalid input. Please try again");
-      selectSize(scanner);
-      //fix the stack trace error that could happen
-    }
-  }
-  public static void selectBread(Scanner scanner) {
+//  public static void selectSize(Scanner scanner) {
+////    System.out.println("What size would you like?");
+////    System.out.println("1) 4\"   $5.50\n2) 8\"   $7.00\n3) 12\"   $8.50");
+//    int userChoice = scanner.nextInt();
+//    scanner.nextLine(); // consume line
+//    double size = userChoice;
+//    if (userChoice == 1) {
+//      size = 4.0;
+//    } else if (userChoice == 2) {
+//      size = 8.0;
+//    } else if (userChoice == 3){
+//      size = 12.0;
+//    } else {
+//      System.out.println("Invalid input. Please try again");
+//      selectSize(scanner);
+//      //fix the stack trace error that could happen
+//    }
+//  }
+
+  // Here we are creating bread for the user
+  public static Bread selectBread(Scanner scanner) {
     System.out.println("What type of bread would you like?");
     System.out.println("1) White\n2) Wheat\n3) Rye\n4) Wrap");
 //    scanner.nextLine(); // consume line
@@ -90,7 +92,7 @@ public class Bread implements Topping {
     }
     // do we need a string builder here to add this sandwich to a file? the sandwich will eventually
     // become an object
-
+    return Bread.selectBread(scanner); //not sure if this is the return type i want
   }
 
 
