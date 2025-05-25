@@ -1,3 +1,4 @@
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -34,18 +35,7 @@ public class Sandwich {
     }
   }
 
-  public Sandwich() {
-
-  }
-
-  public Sandwich(Bread bread, boolean toasted, double basePrice, Topping ... toppings) { //added varargs to allow unlimited toppings
-
-    this.bread = bread;
-    this.toasted = toasted;
-    this.basePrice = basePrice;
-    this.toppings = new ArrayList<>(); //initializing list of toppings, should be unlimited
-    Size selectedSize = Size.SMALL; //do I need to change this since this needs to be picked by the user?
-  }
+  public Sandwich() {}
 
   public boolean isToasted() {
     return toasted;
@@ -79,6 +69,11 @@ public class Sandwich {
     this.size = size;
   }
 
+  public void addAllToppings(ArrayList<Topping> paidToppings) {
+      this.toppings.addAll(paidToppings);
+//      this.toppings.addAll(regularToppings);
+  }
+
   public static Sandwich createSandwich(Scanner scanner) {
     // First step to create a sandwich is we initialize a sandwich object
     Sandwich sandwich = new Sandwich();
@@ -86,26 +81,33 @@ public class Sandwich {
     // Ask user for size. I might need to check for invalid size here.
     System.out.println("What size would you like your sandwich?");
     System.out.println("1) 4\"   $5.50\n2) 8\"   $7.00\n3) 12\"   $8.50");
-    String size = scanner.nextLine();
-    Size sandwichSize = Size.valueOf(size); //idk what this does
-    sandwich.setSize(sandwichSize);
-    // Sandwich needs bread, ask user
-    int userChoice = scanner.nextInt();
-    scanner.nextLine(); // consume line
-    if (userChoice == 1) {
-      size = String.valueOf(Size.SMALL);
-    } else if (userChoice == 2) {
-      size = String.valueOf(Size.MEDIUM);
-    } else if (userChoice == 3){
-      size = String.valueOf(Size.LARGE);
-    } else {
-      System.out.println("Invalid input. Please try again");
-      createSandwich(scanner);
-      //fix the stack trace error that could happen
+    Size size;
+    while (true) {
+      int userChoice = scanner.nextInt();
+      scanner.nextLine(); // consume line
+      if (userChoice == 1) {
+        size = Size.SMALL;
+        break;
+      } else if (userChoice == 2) {
+        size = Size.MEDIUM;
+        break;
+      } else if (userChoice == 3) {
+        size = Size.LARGE;
+        break;
+      } else {
+        System.out.println("Invalid input. Please try again");
+      }
     }
-    // Initiate bread object, pa
-    Bread.selectBread(scanner);
+    sandwich.setSize(size);
+    sandwich.setBread(Bread.createBread(scanner,size));
 
+    // similarly create a function in Topping that asks user what all free toppings and paid toppings they need
+    // then add all to the sandwich by creating a similar function sandwich.addToppings(ArrayList<Topping> toppings)
+    ArrayList<Topping> paidToppings = PaidTopping.selectPaidToppings();
+    sandwich.addAllToppings(paidToppings);
+    //make function that adds all toppings paid and regular, they will be a part of an array list that has regular and paid
+    // then ask about toasted, then do sandwich.setToasted(true/false)
+    // then calculate the total price by adding the price of bread + price of all paid toppings, and set the sandwich price as
     return null;
   }
 
@@ -116,6 +118,7 @@ public class Sandwich {
   public void addSauces() {}
 
   public void addSides() {}
+
   public static void toastSandwich(boolean toasted) {
     System.out.println("Would you like your sandwich toasted?\n1) Yes\n2) No");
     String userChoice = scanner.nextLine();

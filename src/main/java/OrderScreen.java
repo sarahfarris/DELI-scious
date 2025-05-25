@@ -8,11 +8,11 @@ public class OrderScreen {
     System.out.println(
         "1) Add Sandwich\n2) Add Drink\n3) Add Chips\n4) Checkout\n5) Cancel - Back to Home");
     int userChoice = scanner.nextInt();
-    Sandwich sandwich;
     switch (userChoice) {
-      case 0: displayMenu();
+      case 0:
+        displayMenu();
       case 1:
-        sandwich = Sandwich.createSandwich(scanner);
+         Sandwich sandwich = Sandwich.createSandwich(scanner);
        break;
       case 2:
       // addDrink();

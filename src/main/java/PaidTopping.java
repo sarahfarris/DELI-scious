@@ -1,54 +1,54 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class PaidTopping implements Topping {
+public class PaidTopping extends Topping {
   String type;
-  String size;
-  double price;
   static ArrayList<Topping> paidToppings;
   static Scanner scanner = new Scanner(System.in);
+  ArrayList<Topping> paidTopping;
+  // do I need the size attribute here and in the constructor, so I can have a getter/setter so it will be detected in the selectToppings methods?
+  Sandwich.Size size;
 
-  public PaidTopping(String type, String size, double price) {
-    this.type = type;
-    this.size = size;
-    this.price = price;
+  public PaidTopping(double price, String type, Sandwich.Size size) {
+    super(price, type);
+    this.type = type;// do i still need this?
+    this.size = size; // added this so getSize() will work in selectedToppings
   }
 
   public static ArrayList<Topping> getPaidToppings() {
     if (paidToppings == null || paidToppings.isEmpty()) {
-      setPaidToppings(); // initializing
+      paidToppings = new ArrayList<>(); // initializing, changed this from setPaidToppings();
     }
     return paidToppings;
   }
 
-  @Override
+
   public String getType() {
     return type;
   }
 
-  @Override
+
   public void setType(String type) {
     this.type = type;
   }
 
-  @Override
-  public String getSize() {
-    return size;
-  }
 
-  @Override
-  public void setSize(String size) {
-    this.size = size;
-  }
-
-  @Override
   public double getPrice() {
     return price;
   }
 
-  @Override
+
   public void setPrice(double price) {
     this.price = price;
+  }
+
+
+  public Sandwich.Size getSize() {
+    return size;
+  }
+
+  public void setSize(Sandwich.Size size) {
+    this.size = size;
   }
 
   @Override
@@ -57,93 +57,92 @@ public class PaidTopping implements Topping {
         + "type='"
         + type
         + " | "
-        + ", size='"
-        + size
-        + " | "
         + ", price="
         + " $"
         + String.format("%.2f", price)
         + '}';
   }
-
-  public static void setPaidToppings() {
-    paidToppings = new ArrayList<>(); // list initialization
-    paidToppings.add(new PaidTopping("steak", "4\"", 1.00));
-    paidToppings.add(new PaidTopping("steak", "8\"", 2.00));
-    paidToppings.add(new PaidTopping("steak", "12\"", 3.00));
-    paidToppings.add(new PaidTopping("steak +", "4\"", 1.50));
-    paidToppings.add(new PaidTopping("steak +", "8\"", 3.00));
-    paidToppings.add(new PaidTopping("steak +", "12\"", 4.50));
-
-    paidToppings.add(new PaidTopping("ham", "4\"", 1.00));
-    paidToppings.add(new PaidTopping("ham", "8\"", 2.00));
-    paidToppings.add(new PaidTopping("ham", "12\"", 3.00));
-    paidToppings.add(new PaidTopping("ham +", "4\"", 1.50));
-    paidToppings.add(new PaidTopping("ham +", "8\"", 3.00));
-    paidToppings.add(new PaidTopping("ham +", "12\"", 4.50));
-
-    paidToppings.add(new PaidTopping("salami", "4\"", 1.00));
-    paidToppings.add(new PaidTopping("salami", "8\"", 2.00));
-    paidToppings.add(new PaidTopping("salami", "12\"", 3.00));
-    paidToppings.add(new PaidTopping("salami +", "4\"", 1.50));
-    paidToppings.add(new PaidTopping("salami +", "8\"", 3.00));
-    paidToppings.add(new PaidTopping("salami +", "12\"", 4.50));
-
-    paidToppings.add(new PaidTopping("roast beef", "4\"", 1.00));
-    paidToppings.add(new PaidTopping("roast beef", "8\"", 2.00));
-    paidToppings.add(new PaidTopping("roast beef", "12\"", 3.00));
-    paidToppings.add(new PaidTopping("roast beef +", "4\"", 1.50));
-    paidToppings.add(new PaidTopping("roast beef +", "8\"", 3.00));
-    paidToppings.add(new PaidTopping("roast beef +", "12\"", 4.50));
-
-    paidToppings.add(new PaidTopping("chicken", "4\"", 1.00));
-    paidToppings.add(new PaidTopping("chicken", "8\"", 2.00));
-    paidToppings.add(new PaidTopping("chicken", "12\"", 3.00));
-    paidToppings.add(new PaidTopping("chicken +", "4\"", 1.50));
-    paidToppings.add(new PaidTopping("chicken +", "8\"", 3.00));
-    paidToppings.add(new PaidTopping("chicken +", "12\"", 4.50));
-
-    paidToppings.add(new PaidTopping("bacon", "4\"", 1.00));
-    paidToppings.add(new PaidTopping("bacon", "8\"", 2.00));
-    paidToppings.add(new PaidTopping("bacon", "12\"", 3.00));
-    paidToppings.add(new PaidTopping("bacon +", "4\"", 1.50));
-    paidToppings.add(new PaidTopping("bacon +", "8\"", 3.00));
-    paidToppings.add(new PaidTopping("bacon +", "12\"", 4.50));
-
-    paidToppings.add(new PaidTopping("american", "4\"", 0.75));
-    paidToppings.add(new PaidTopping("american", "8\"", 1.50));
-    paidToppings.add(new PaidTopping("american", "12\"", 2.25));
-    paidToppings.add(new PaidTopping("american +", "4\"", 1.05));
-    paidToppings.add(new PaidTopping("american +", "8\"", 2.10));
-    paidToppings.add(new PaidTopping("american +", "12\"", 3.15));
-
-    paidToppings.add(new PaidTopping("provolone", "4\"", 0.75));
-    paidToppings.add(new PaidTopping("provolone", "8\"", 1.50));
-    paidToppings.add(new PaidTopping("provolone", "12\"", 2.25));
-    paidToppings.add(new PaidTopping("provolone +", "4\"", 1.05));
-    paidToppings.add(new PaidTopping("provolone +", "8\"", 2.10));
-    paidToppings.add(new PaidTopping("provolone +", "12\"", 3.15));
-
-    paidToppings.add(new PaidTopping("cheddar", "4\"", 0.75));
-    paidToppings.add(new PaidTopping("cheddar", "8\"", 1.50));
-    paidToppings.add(new PaidTopping("cheddar", "12\"", 2.25));
-    paidToppings.add(new PaidTopping("cheddar +", "4\"", 1.05));
-    paidToppings.add(new PaidTopping("cheddar +", "8\"", 2.10));
-    paidToppings.add(new PaidTopping("cheddar +", "12\"", 3.15));
-
-    paidToppings.add(new PaidTopping("swiss", "4\"", 0.75));
-    paidToppings.add(new PaidTopping("swiss", "8\"", 1.50));
-    paidToppings.add(new PaidTopping("swiss", "12\"", 2.25));
-    paidToppings.add(new PaidTopping("swiss +", "4\"", 1.05));
-    paidToppings.add(new PaidTopping("swiss +", "8\"", 2.10));
-    paidToppings.add(new PaidTopping("swiss +", "12\"", 3.15));
+//this used to have Topping as the parameter instead of the arraylist
+  public void setPaidToppings(ArrayList<Topping> paidTopping) {
+    this.paidTopping = paidTopping;
   }
+//    paidToppings = new ArrayList<>(); // list initialization
+//    paidToppings.add(new PaidTopping("steak", "4\"", 1.00));
+//    paidToppings.add(new PaidTopping("steak", "8\"", 2.00));
+//    paidToppings.add(new PaidTopping("steak", "12\"", 3.00));
+//    paidToppings.add(new PaidTopping("steak +", "4\"", 1.50));
+//    paidToppings.add(new PaidTopping("steak +", "8\"", 3.00));
+//    paidToppings.add(new PaidTopping("steak +", "12\"", 4.50));
+//
+//    paidToppings.add(new PaidTopping("ham", "4\"", 1.00));
+//    paidToppings.add(new PaidTopping("ham", "8\"", 2.00));
+//    paidToppings.add(new PaidTopping("ham", "12\"", 3.00));
+//    paidToppings.add(new PaidTopping("ham +", "4\"", 1.50));
+//    paidToppings.add(new PaidTopping("ham +", "8\"", 3.00));
+//    paidToppings.add(new PaidTopping("ham +", "12\"", 4.50));
+//
+//    paidToppings.add(new PaidTopping("salami", "4\"", 1.00));
+//    paidToppings.add(new PaidTopping("salami", "8\"", 2.00));
+//    paidToppings.add(new PaidTopping("salami", "12\"", 3.00));
+//    paidToppings.add(new PaidTopping("salami +", "4\"", 1.50));
+//    paidToppings.add(new PaidTopping("salami +", "8\"", 3.00));
+//    paidToppings.add(new PaidTopping("salami +", "12\"", 4.50));
+//
+//    paidToppings.add(new PaidTopping("roast beef", "4\"", 1.00));
+//    paidToppings.add(new PaidTopping("roast beef", "8\"", 2.00));
+//    paidToppings.add(new PaidTopping("roast beef", "12\"", 3.00));
+//    paidToppings.add(new PaidTopping("roast beef +", "4\"", 1.50));
+//    paidToppings.add(new PaidTopping("roast beef +", "8\"", 3.00));
+//    paidToppings.add(new PaidTopping("roast beef +", "12\"", 4.50));
+//
+//    paidToppings.add(new PaidTopping("chicken", "4\"", 1.00));
+//    paidToppings.add(new PaidTopping("chicken", "8\"", 2.00));
+//    paidToppings.add(new PaidTopping("chicken", "12\"", 3.00));
+//    paidToppings.add(new PaidTopping("chicken +", "4\"", 1.50));
+//    paidToppings.add(new PaidTopping("chicken +", "8\"", 3.00));
+//    paidToppings.add(new PaidTopping("chicken +", "12\"", 4.50));
+//
+//    paidToppings.add(new PaidTopping("bacon", "4\"", 1.00));
+//    paidToppings.add(new PaidTopping("bacon", "8\"", 2.00));
+//    paidToppings.add(new PaidTopping("bacon", "12\"", 3.00));
+//    paidToppings.add(new PaidTopping("bacon +", "4\"", 1.50));
+//    paidToppings.add(new PaidTopping("bacon +", "8\"", 3.00));
+//    paidToppings.add(new PaidTopping("bacon +", "12\"", 4.50));
+//
+//    paidToppings.add(new PaidTopping("american", "4\"", 0.75));
+//    paidToppings.add(new PaidTopping("american", "8\"", 1.50));
+//    paidToppings.add(new PaidTopping("american", "12\"", 2.25));
+//    paidToppings.add(new PaidTopping("american +", "4\"", 1.05));
+//    paidToppings.add(new PaidTopping("american +", "8\"", 2.10));
+//    paidToppings.add(new PaidTopping("american +", "12\"", 3.15));
+//
+//    paidToppings.add(new PaidTopping("provolone", "4\"", 0.75));
+//    paidToppings.add(new PaidTopping("provolone", "8\"", 1.50));
+//    paidToppings.add(new PaidTopping("provolone", "12\"", 2.25));
+//    paidToppings.add(new PaidTopping("provolone +", "4\"", 1.05));
+//    paidToppings.add(new PaidTopping("provolone +", "8\"", 2.10));
+//    paidToppings.add(new PaidTopping("provolone +", "12\"", 3.15));
+//
+//    paidToppings.add(new PaidTopping("cheddar", "4\"", 0.75));
+//    paidToppings.add(new PaidTopping("cheddar", "8\"", 1.50));
+//    paidToppings.add(new PaidTopping("cheddar", "12\"", 2.25));
+//    paidToppings.add(new PaidTopping("cheddar +", "4\"", 1.05));
+//    paidToppings.add(new PaidTopping("cheddar +", "8\"", 2.10));
+//    paidToppings.add(new PaidTopping("cheddar +", "12\"", 3.15));
+//
+//    paidToppings.add(new PaidTopping("swiss", "4\"", 0.75));
+//    paidToppings.add(new PaidTopping("swiss", "8\"", 1.50));
+//    paidToppings.add(new PaidTopping("swiss", "12\"", 2.25));
+//    paidToppings.add(new PaidTopping("swiss +", "4\"", 1.05));
+//    paidToppings.add(new PaidTopping("swiss +", "8\"", 2.10));
+//    paidToppings.add(new PaidTopping("swiss +", "12\"", 3.15));
+//  }
 
   public static void printPaidToppings() {
     getPaidToppings();
     System.out.println("Available paid toppings: ");
     if (paidToppings == null || paidToppings.isEmpty()) {
-      setPaidToppings(); // initializing
+      setPaidToppings(paidToppings); // initializing
     }
     if (paidToppings.isEmpty()) {
       System.out.println("Initialization failed.");
@@ -155,16 +154,14 @@ public class PaidTopping implements Topping {
           (i + 1)
               + ". "
               + paidToppings.get(
-                  i)); // prints the index to allow user selection. looked this up on google and
-      // don't understand all that well but will look up later to clarify
+                  i));
     }
   }
 
-  public static void selectPaidToppings() {
+  public static ArrayList<Topping> selectPaidToppings() {
     printPaidToppings();
-    boolean addingToppings = true;
-
-    while (addingToppings) {
+    ArrayList<Topping> selectedToppings = new ArrayList<>();
+    while (true) {
       System.out.println(
           "Please select from the following paid toppings by selecting the corresponding number:");
       int choice = scanner.nextInt();
@@ -182,15 +179,15 @@ public class PaidTopping implements Topping {
                   + selectedTopping.getSize()
                   + " for $"
                   + selectedTopping.getPrice());
-//          Sandwich.addTopping(null); // do I need to pass in the selectedTopping as a parameter?
+          selectedToppings.add(selectedTopping);
           System.out.println("Would you like to add another topping?\nY - yes\nN - no");
           String confirmation = scanner.nextLine();
           if (!confirmation.equalsIgnoreCase("y")) {
-            addingToppings = false;
+            break;
           }
         } else if (choice == 0) { // will this let me end the loop?
           System.out.println("Finished selecting toppings");
-          addingToppings = false;
+          break;
         }
 
       } catch (IndexOutOfBoundsException e) {
@@ -200,5 +197,6 @@ public class PaidTopping implements Topping {
       // TODO: calculate cost of sandwich and display summary, have ability to go to home screen to
       // add other items to order
     }
+    return selectedToppings;
   }
 }
