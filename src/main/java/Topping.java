@@ -1,58 +1,264 @@
-// represent a single topping
+import java.util.ArrayList;
+import java.util.Scanner;
+
 public class Topping {
+  String name;
   double price;
-  String type;
-  String size; //not sure if I want this here because of enums
+  ToppingType type;
 
-//do I need name and type?
-    public Topping(double price, String type) {
-//took out name since name and type were the same thing
-        this.price = price;
-        this.type = type;
-        this.size = size;
+  enum ToppingType {
+    MEAT,
+    CHEESE,
+    SAUCE,
+    SIDE,
+    REGULAR
+  }
 
+  private static ArrayList<Topping> allPaidToppings;
+  private static ArrayList<Topping> allFreeToppings;
+  static Scanner scanner = new Scanner(System.in);
+  // do I need the size attribute here and in the constructor, so I can have a getter/setter so it
+  // will be detected in the selectToppings methods?
+  Sandwich.Size size;
+
+  public Topping(String name, double price, ToppingType type) {
+    this.price = price;
+    this.name = name;
+    this.type = type;
+  }
+
+  public double getPrice() {
+    return price;
+  }
+
+  public String getName() {
+    return name;
+  }
+
+  public static ArrayList<Topping> getToppings(Sandwich.Size size) {
+    ArrayList<Topping> allToppings = getPaidToppings(size);
+    allToppings.addAll(getFreeToppings(size));
+    return allToppings;
+  }
+
+  private static ArrayList<Topping> getFreeToppings(Sandwich.Size size) {
+    if (allFreeToppings == null || allFreeToppings.isEmpty()) {
+      initializeFreeToppings();
+    }
+    return getCustomerSelectedFreeToppings(size);
+  }
+
+  private static ArrayList<Topping> getCustomerSelectedFreeToppings(Sandwich.Size size) {
+    ArrayList<Topping> selectedFreeToppings = new ArrayList<>();
+    System.out.println("Please select any free toppings to add:");
+    printToppingsMenuForSize(allFreeToppings, size);
+    while (true) {
+      System.out.println(
+          "Press m to see the menu again. Please select from the following paid toppings by selecting the corresponding number:");
+      String choice = scanner.nextLine();
+      if (choice.equalsIgnoreCase("m")) {
+        printToppingsMenuForSize(allFreeToppings, size);
+      } else {
+        int menuChoice = Integer.parseInt(choice);// took out consume line
+        try {
+          if (menuChoice > 0) {
+            Topping selectedTopping =
+                allFreeToppings.get(
+                    menuChoice - 1); // translates menu numbering (starting with 1) to java indexing
+            // (starting with 0)
+            System.out.println("You selected: " + selectedTopping.getName());
+            selectedFreeToppings.add(selectedTopping);
+          } else if (menuChoice == 0) {
+            System.out.println("Finished selecting toppings");
+            break;
+          }
+        } catch (IndexOutOfBoundsException e) {
+          System.out.println(
+              "Invalid input. Please select a number between 0 and "
+                  + allFreeToppings.size()
+                  + ".");
+        }
+      }
+    }
+    return selectedFreeToppings;
+  }
+
+  private static void initializeFreeToppings() {
+     allFreeToppings = new ArrayList<>(); // list initialization
+    allFreeToppings.add(new Topping("Lettuce", 0, ToppingType.REGULAR));
+    allFreeToppings.add(new Topping("Peppers", 0, ToppingType.REGULAR));
+    allFreeToppings.add(new Topping("Onions", 0, ToppingType.REGULAR));
+    allFreeToppings.add(new Topping("Tomatoes", 0, ToppingType.REGULAR));
+    allFreeToppings.add(new Topping("Jalapenos", 0, ToppingType.REGULAR));
+    allFreeToppings.add(new Topping("Cucumbers", 0, ToppingType.REGULAR));
+    allFreeToppings.add(new Topping("Pickles", 0, ToppingType.REGULAR));
+    allFreeToppings.add(new Topping("Guacamole", 0, ToppingType.REGULAR));
+    allFreeToppings.add(new Topping("Mushrooms", 0, ToppingType.REGULAR));
+
+    allFreeToppings.add(new Topping("Mayo", 0, ToppingType.SAUCE));
+    allFreeToppings.add(new Topping("Mustard", 0, ToppingType.SAUCE));
+    allFreeToppings.add(new Topping("Ketchup", 0, ToppingType.SAUCE));
+    allFreeToppings.add(new Topping("Ranch", 0, ToppingType.SAUCE));
+    allFreeToppings.add(new Topping("Thousand Island", 0, ToppingType.SAUCE));
+    allFreeToppings.add(new Topping("Vinaigrette", 0, ToppingType.SAUCE));
+
+    allFreeToppings.add(new Topping("Au jus", 0, ToppingType.SIDE));
+    allFreeToppings.add(new Topping("Sauce", 0, ToppingType.SIDE)); //sauce on side
+  }
+
+  private static ArrayList<Topping> getPaidToppings(Sandwich.Size size) {
+    if (allPaidToppings == null || allPaidToppings.isEmpty()) {
+      initializePaidToppings(size);
+    }
+    // ask user if they would like to see the paid toppings, otherwise return an empty list
+    return getCustomerSelectedToppings(size);
+  }
+
+  private static void initializePaidToppings(Sandwich.Size size) {
+    allPaidToppings = new ArrayList<>(); // list initialization
+    if (size == Sandwich.Size.SMALL) {
+      // meat
+      allPaidToppings.add(new Topping("Steak", 1.00, ToppingType.MEAT));
+      allPaidToppings.add(new Topping("Ham", 1.00, ToppingType.MEAT));
+      allPaidToppings.add(new Topping("Salami", 1.00, ToppingType.MEAT));
+      allPaidToppings.add(new Topping("Roast Beef", 1.00, ToppingType.MEAT));
+      allPaidToppings.add(new Topping("Chicken", 1.00, ToppingType.MEAT));
+      allPaidToppings.add(new Topping("Bacon", 1.00, ToppingType.MEAT));
+      allPaidToppings.add(new Topping("Extra Meat", 0.50, ToppingType.MEAT)); // extra charge, not total price
+
+      // cheese
+      allPaidToppings.add(new Topping("American", 0.75, ToppingType.CHEESE));
+      allPaidToppings.add(new Topping("Provolone", 0.75, ToppingType.CHEESE));
+      allPaidToppings.add(new Topping("Cheddar", 0.75, ToppingType.CHEESE));
+      allPaidToppings.add(new Topping("Swiss", 0.75, ToppingType.CHEESE));
+      allPaidToppings.add(new Topping("Extra Cheese", 0.30, ToppingType.CHEESE)); // extra charge
+
+    } else if (size == Sandwich.Size.MEDIUM) {
+      // meat
+      allPaidToppings.add(new Topping("Steak", 2.00, ToppingType.MEAT));
+      allPaidToppings.add(new Topping("Ham", 2.00, ToppingType.MEAT));
+      allPaidToppings.add(new Topping("Salami", 2.00, ToppingType.MEAT));
+      allPaidToppings.add(new Topping("Roast Beef", 2.00, ToppingType.MEAT));
+      allPaidToppings.add(new Topping("Chicken", 2.00, ToppingType.MEAT));
+      allPaidToppings.add(new Topping("Bacon", 2.00, ToppingType.MEAT));
+      allPaidToppings.add(new Topping("Extra Meat", 1.00, ToppingType.MEAT)); // extra charge, not total price
+
+      // cheese
+      allPaidToppings.add(new Topping("American", 1.50, ToppingType.CHEESE));
+      allPaidToppings.add(new Topping("Provolone", 1.50, ToppingType.CHEESE));
+      allPaidToppings.add(new Topping("Cheddar", 1.50, ToppingType.CHEESE));
+      allPaidToppings.add(new Topping("Swiss", 1.50, ToppingType.CHEESE));
+      allPaidToppings.add(new Topping("Extra Cheese", 0.60, ToppingType.CHEESE));
+
+    } else if (size == Sandwich.Size.LARGE) {
+      // meat
+      allPaidToppings.add(new Topping("Steak", 3.00, ToppingType.MEAT));
+      allPaidToppings.add(new Topping("Ham", 3.00, ToppingType.MEAT));
+      allPaidToppings.add(new Topping("Salami", 3.00, ToppingType.MEAT));
+      allPaidToppings.add(new Topping("Roast Beef", 3.00, ToppingType.MEAT));
+      allPaidToppings.add(new Topping("Chicken", 3.00, ToppingType.MEAT));
+      allPaidToppings.add(new Topping("Bacon", 3.00, ToppingType.MEAT));
+      allPaidToppings.add(new Topping("Extra Meat", 1.50, ToppingType.MEAT)); // extra charge, not total price
+
+      // cheese
+      allPaidToppings.add(new Topping("American", 2.25, ToppingType.CHEESE));
+      allPaidToppings.add(new Topping("Provolone", 2.25, ToppingType.CHEESE));
+      allPaidToppings.add(new Topping("Cheddar", 2.25, ToppingType.CHEESE));
+      allPaidToppings.add(new Topping("Swiss", 2.25, ToppingType.CHEESE));
+      allPaidToppings.add(new Topping("Extra Cheese", 0.90, ToppingType.CHEESE));
+    }
+  }
+
+  private static ArrayList<Topping> getCustomerSelectedToppings(Sandwich.Size size) {
+    printToppingsMenuForSize(allPaidToppings, size);
+    ArrayList<Topping> selectedToppings = new ArrayList<>();
+    while (true) {
+      System.out.println(
+          "Press m to see the menu again. Please select from the following paid toppings by selecting the corresponding number:");
+      String choice = scanner.nextLine();
+      if (choice.equalsIgnoreCase("m")) {
+        printToppingsMenuForSize(allPaidToppings, size);
+      } else {
+        try {
+          int menuChoice = Integer.parseInt(choice);
+          if (menuChoice > 0) {
+            Topping selectedTopping =
+                allPaidToppings.get(
+                    menuChoice - 1); // translates menu numbering (starting with 1) to java indexing
+            selectedToppings.add(selectedTopping);
+            // press any key to exit
+          } else if (menuChoice == 0) {
+            System.out.println("Finished selecting toppings");
+            break;
+          }
+
+        } catch (Exception e) {
+          System.out.println(
+              "Invalid input. Please select a number between 0 and "
+                  + allPaidToppings.size()
+                  + "or input m to see the menu again.");
+        }
+      }
+      // TODO: calculate cost of sandwich and display summary, have ability to go to home screen to
+    }
+    return selectedToppings;
+  }
+
+  @Override
+  public String toString() {
+    return name + " ($" + String.format("%.2f", price) + ")";
+  }
+//TODO: add sauces and sides to the list, with a line
+  public static void printToppingsMenuForSize(
+      ArrayList<Topping> toppingsList, Sandwich.Size sandwichSize) {
+    int indexColWidth = 5; // Width for the index column (e.g., "1.")
+    int itemColWidth = 20; // Width for the topping name column
+    int priceColWidth = 12; // Width for the price column
+    int totalWidth = indexColWidth + itemColWidth + priceColWidth + 6; // Adjust for separators
+
+    // --- Header for the specific size ---
+    System.out.println("\n" + "=".repeat(totalWidth));
+    System.out.printf(
+        "%-" + totalWidth + "s%n",
+        "   AVAILABLE TOPPINGS (" + sandwichSize.getInches() + "\")");
+    System.out.println("=".repeat(totalWidth));
+
+    // --- Table Header ---
+    System.out.printf(
+        "%-" + indexColWidth + "s | %-" + itemColWidth + "s | %" + priceColWidth + "s%n",
+        "No.",
+        "Topping",
+        "Price");
+    System.out.println(
+        "-".repeat(indexColWidth)
+            + "+"
+            + "-".repeat(itemColWidth + 2)
+            + "+"
+            + "-".repeat(priceColWidth + 2));
+
+    // --- Print each topping with an index ---
+    for (int i = 0; i < toppingsList.size(); i++) {
+      Topping topping = toppingsList.get(i);
+      System.out.printf(
+          "%-" + indexColWidth + "d | %-" + itemColWidth + "s | %" + priceColWidth + ".2f%n",
+          (i + 1),
+          topping.getName(),
+          topping.getPrice()); // (i + 1) for 1-based indexing
     }
 
-//    public String getName() {
-//        return name;
-//    }
-//
-//    public void setName(String name) {
-//        this.name = name;
-//    }
+    // --- Finish selection option ---
+    System.out.println(
+        "-".repeat(indexColWidth)
+            + "+"
+            + "-".repeat(itemColWidth + 2)
+            + "+"
+            + "-".repeat(priceColWidth + 2));
+    System.out.printf(
+        "%-" + indexColWidth + "d | %-" + itemColWidth + "s | %" + priceColWidth + "s%n",
+        0,
+        "Finish selection",
+        ""); // Price column empty for "Finish"
 
-    public double getPrice() {
-        return price;
-    }
-
-    public void setPrice(double price) {
-        this.price = price;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public Sandwich.Size getSize() {
-        return Sandwich.Size.valueOf(size); //this was a suggestion from intelliJ
-    }
-
-    public void setSize(String size) {
-        this.size = size;
-    }
+    System.out.println("=".repeat(totalWidth));
+  }
 }
-
-    // name
-    // price (price)
-    // Sandwich.Size enum
-    // getter setter/one constructor
-    // paid topping and free topping is gonna extend this class
-    // free topping constructor going to set the price 0 using the super constructor
-    // paid topping..... price using Sandwich.Size (similar to bread constructor) and  use the superconstructor to build the object
-
-
-

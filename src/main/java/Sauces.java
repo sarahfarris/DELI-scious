@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 
 public class Sauces {
+
     public ArrayList<String> sauces() {
         ArrayList<String> sauces = new ArrayList<>();
         sauces.add("mayo");

@@ -9,15 +9,9 @@ public class Bread {
   public Bread(Sandwich.Size size) {
     switch (size) {
       //  fix the price with the relevant price
-        case SMALL -> {
-          price = 5.50;
-        }
-        case MEDIUM -> {
-          price = 7;
-        }
-        case LARGE -> {
-          price = 8.50;
-        }
+        case SMALL -> price = 5.50;
+        case MEDIUM -> price = 7;
+        case LARGE -> price = 8.50;
     }
   }
 
@@ -47,7 +41,7 @@ public class Bread {
   public static Bread createBread(Scanner scanner, Sandwich.Size size) {
     Bread bread = new Bread(size);
     while (true) {
-      System.out.println("What type of bread would you like?");
+      System.out.println("What name of bread would you like?");
       System.out.println("1) White\n2) Wheat\n3) Rye\n4) Wrap");
       int userChoice = scanner.nextInt();
       scanner.nextLine(); // consume line

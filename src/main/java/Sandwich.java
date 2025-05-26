@@ -1,4 +1,3 @@
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -69,16 +68,12 @@ public class Sandwich {
     this.size = size;
   }
 
-  public void addAllToppings(ArrayList<Topping> paidToppings) {
-      this.toppings.addAll(paidToppings);
-//      this.toppings.addAll(regularToppings);
+  public void addAllToppings(ArrayList<Topping> allToppings) {
+    this.toppings = allToppings;
   }
 
   public static Sandwich createSandwich(Scanner scanner) {
-    // First step to create a sandwich is we initialize a sandwich object
     Sandwich sandwich = new Sandwich();
-    // Sandwich needs a size.
-    // Ask user for size. I might need to check for invalid size here.
     System.out.println("What size would you like your sandwich?");
     System.out.println("1) 4\"   $5.50\n2) 8\"   $7.00\n3) 12\"   $8.50");
     Size size;
@@ -99,36 +94,30 @@ public class Sandwich {
       }
     }
     sandwich.setSize(size);
-    sandwich.setBread(Bread.createBread(scanner,size));
-
-    // similarly create a function in Topping that asks user what all free toppings and paid toppings they need
-    // then add all to the sandwich by creating a similar function sandwich.addToppings(ArrayList<Topping> toppings)
-    ArrayList<Topping> paidToppings = PaidTopping.selectPaidToppings();
-    sandwich.addAllToppings(paidToppings);
-    //make function that adds all toppings paid and regular, they will be a part of an array list that has regular and paid
-    // then ask about toasted, then do sandwich.setToasted(true/false)
-    // then calculate the total price by adding the price of bread + price of all paid toppings, and set the sandwich price as
-    return null;
+    sandwich.setBread(Bread.createBread(scanner, size));
+    ArrayList<Topping> allToppings = Topping.getToppings(size);
+    System.out.println(allToppings);
+    sandwich.addAllToppings(allToppings);
+    sandwich.toastSandwich();
+    return sandwich;
   }
 
-  public void addRegularTopping() {}
-
-  public void addDrink() {}
-
-  public void addSauces() {}
-
-  public void addSides() {}
-
-  public static void toastSandwich(boolean toasted) {
+  public void toastSandwich() {
     System.out.println("Would you like your sandwich toasted?\n1) Yes\n2) No");
     String userChoice = scanner.nextLine();
     if (userChoice.equals("1") || userChoice.contains("y")) {
-      toasted = true;
+       toasted = true;
     } else {
       toasted = false;
     }
   }
 
+  public double calculateSandwichPrice() {
+    double totalSandwichPrice = bread.getPrice() + Topping.getToppings()
+    return 0.0;
+  }
+
+  // may need to edit the toString method to match updates
   @Override
   public String toString() {
     return "Sandwich{"

@@ -11,6 +11,7 @@ public class OrderScreen {
     switch (userChoice) {
       case 0:
         displayMenu();
+        break;
       case 1:
          Sandwich sandwich = Sandwich.createSandwich(scanner);
        break;
