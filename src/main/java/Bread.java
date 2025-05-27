@@ -1,6 +1,5 @@
 import java.util.Scanner;
 
-// not sure if I want to have the implement topping with @Override methods
 public class Bread {
   static Scanner scanner = new Scanner(System.in);
   String breadType;
@@ -8,7 +7,6 @@ public class Bread {
 
   public Bread(Sandwich.Size size) {
     switch (size) {
-      //  fix the price with the relevant price
         case SMALL -> price = 5.50;
         case MEDIUM -> price = 7;
         case LARGE -> price = 8.50;

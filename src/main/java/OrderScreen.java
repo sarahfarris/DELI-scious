@@ -16,7 +16,7 @@ public class OrderScreen {
          Sandwich sandwich = Sandwich.createSandwich(scanner);
        break;
       case 2:
-      // addDrink();
+      Drink drink = new Drink.addDrink(scanner);
         break;
       case 3:
       //addChips();

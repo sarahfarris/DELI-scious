@@ -7,7 +7,7 @@ public class Sandwich {
   private Bread bread;
   private ArrayList<Topping> toppings;
   private boolean toasted;
-  private double basePrice;
+  private double price;
   private Size size;
 
   public enum Size {
@@ -52,12 +52,12 @@ public class Sandwich {
     this.bread = bread;
   }
 
-  public double getBasePrice() {
-    return basePrice;
+  public double getPrice() {
+    return price;
   }
 
-  public void setBasePrice(double basePrice) {
-    this.basePrice = basePrice;
+  public void setPrice(double price) {
+    this.price = price;
   }
 
   public void addTopping(Topping topping) {
@@ -96,9 +96,10 @@ public class Sandwich {
     sandwich.setSize(size);
     sandwich.setBread(Bread.createBread(scanner, size));
     ArrayList<Topping> allToppings = Topping.getToppings(size);
-    System.out.println(allToppings);
     sandwich.addAllToppings(allToppings);
     sandwich.toastSandwich();
+    sandwich.calculateSandwichPrice();
+    System.out.println(sandwich.getPrice());
     return sandwich;
   }
 
@@ -106,15 +107,19 @@ public class Sandwich {
     System.out.println("Would you like your sandwich toasted?\n1) Yes\n2) No");
     String userChoice = scanner.nextLine();
     if (userChoice.equals("1") || userChoice.contains("y")) {
-       toasted = true;
+      toasted = true;
     } else {
       toasted = false;
     }
   }
 
-  public double calculateSandwichPrice() {
-    double totalSandwichPrice = bread.getPrice() + Topping.getToppings()
-    return 0.0;
+  private void calculateSandwichPrice() {
+    double totalSandwichPrice = bread.getPrice();
+    for (int i = 0; i < toppings.size(); i++){
+      Topping t = toppings.get(i);
+      totalSandwichPrice += t.getPrice();
+    }
+     price = totalSandwichPrice;
   }
 
   // may need to edit the toString method to match updates
