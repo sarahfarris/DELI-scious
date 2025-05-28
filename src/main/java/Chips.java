@@ -22,6 +22,7 @@ public class Chips extends MenuItem {
           System.out.println("How many chips would you like to add?");
           try {
             nrOfChips = scanner.nextInt();
+            //adds nrOfChips to array list, creates the objects of chips correlating to the number
             for (int i = 0; i < nrOfChips; i++) {
               chips.add(new Chips(1.50));
             }
@@ -36,7 +37,7 @@ public class Chips extends MenuItem {
           System.out.println("Invalid input. Please select Y for yes or N for no.");
         }
       } catch (InputMismatchException e) {
-        System.out.println("Invalid input. Please try again.1211");
+        System.out.println("Invalid input. Please try again.");
       }
     }
     return chips;

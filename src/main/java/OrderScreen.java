@@ -24,9 +24,11 @@ public class OrderScreen {
           break;
         case 2:
           Drink.addDrink(scanner);
+          //do I need a variable to save drink?
           break;
         case 3:
           Chips.addChips();
+          //do I need a variable to save chips?
           break;
         case 4:
           // checkoutOrder();
