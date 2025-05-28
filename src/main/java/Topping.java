@@ -213,41 +213,7 @@ public class Topping {
     boolean removingToppings = true;
     while (removingToppings) {
       // prints the selected toppings by index with same formula as menu
-//      System.out.println(allPaidToppings);
       printToppingsMenuForSize(selectedToppings, sandwichSize);
-//      int indexColWidth = 5; // Width for the index column ("1.")
-//      int itemColWidth = 20; // Width for the topping name column
-//      int priceColWidth = 12; // Width for the price column
-//      int totalWidth = indexColWidth + itemColWidth + priceColWidth + 6; // Adjust for separators
-//
-//      //iterate through selectedToppings list
-//      for (int i = 0; i < selectedToppings.size(); i++) {
-//        Topping topping = selectedToppings.get(i);
-//        System.out.printf(
-//            "%-"
-//                + indexColWidth
-//                + "d | %-"
-//                + itemColWidth
-//                + "s | %"
-//                + priceColWidth
-//                + ".2f%n", // try adding dollar sign?
-//            (i + 1),
-//            topping.getName(),
-//            topping.getPrice()); // (i + 1) for 1-based indexing
-//      }  // --- Finish selection option ---
-//      System.out.println(
-//              "-".repeat(indexColWidth)
-//                      + "+"
-//                      + "-".repeat(itemColWidth + 2)
-//                      + "+"
-//                      + "-".repeat(priceColWidth + 2));
-//      System.out.printf(
-//              "%-" + indexColWidth + "d | %-" + itemColWidth + "s | %" + priceColWidth + "s%n",
-//              0,
-//              "Finish selection",
-//              ""); // Price column empty for "Finish"
-//      System.out.println("=".repeat(totalWidth));
-
       // ask user which toppings they would like to remove by index
       System.out.println("Select the toppings you would like to remove by pressing the corresponding number: ");
       try {

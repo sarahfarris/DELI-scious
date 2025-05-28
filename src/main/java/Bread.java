@@ -1,3 +1,4 @@
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Bread {
@@ -7,9 +8,9 @@ public class Bread {
 
   public Bread(Sandwich.Size size) {
     switch (size) {
-        case SMALL -> price = 5.50;
-        case MEDIUM -> price = 7;
-        case LARGE -> price = 8.50;
+      case SMALL -> price = 5.50;
+      case MEDIUM -> price = 7;
+      case LARGE -> price = 8.50;
     }
   }
 
@@ -25,6 +26,7 @@ public class Bread {
   public String getType() {
     return "";
   }
+
   public void setType(String type) {}
 
   public double getPrice() {
@@ -36,39 +38,41 @@ public class Bread {
   }
 
   // Here we are creating bread for the user
-  //Will the type of bread be saved to the receipt if its not its own ENUM like we did with everything else?
+  // Will the type of bread be saved to the receipt if its not its own ENUM like we did with
+  // everything else?
   public static Bread createBread(Scanner scanner, Sandwich.Size size) {
-    Bread bread = new Bread(size);
+    Bread bread =
+        new Bread(size);
     while (true) {
-      System.out.println("What type of bread would you like?");
-      System.out.println("1) White\n2) Wheat\n3) Rye\n4) Wrap");
-      int userChoice = scanner.nextInt();
-      scanner.nextLine(); // consume line
-      if (userChoice == 1) {
-        bread.setBreadType("white");
-        break;
-      } else if (userChoice == 2) {
-        bread.setBreadType("wheat");
-        break;
-      } else if (userChoice == 3) {
-        bread.setBreadType("rye");
-        break;
-      } else if (userChoice == 4) {
-        bread.setBreadType("wrap");
-        break;
-      } else {
-        System.out.println("Invalid input. Please try again");
+      try {
+        System.out.println("What type of bread would you like?");
+        System.out.println("1) White\n2) Wheat\n3) Rye\n4) Wrap");
+        int userChoice = scanner.nextInt();
+        scanner.nextLine(); // consume line
+        if (userChoice == 1) {
+          bread.setBreadType("white");
+          break;
+        } else if (userChoice == 2) {
+          bread.setBreadType("wheat");
+          break;
+        } else if (userChoice == 3) {
+          bread.setBreadType("rye");
+          break;
+        } else if (userChoice == 4) {
+          bread.setBreadType("wrap");
+          break;
+        }
+      } catch (InputMismatchException e) {
+        System.out.println("Invalid input. Please try again.");
+        scanner.nextLine(); // keeps loop on track
       }
     }
     return bread;
   }
 
-  //took out size as I'm not sure how to incorporate that as Enum
+  // took out size as I'm not sure how to incorporate that as Enum
   @Override
   public String toString() {
-    return "Bread{" +
-            "breadType='" + breadType + '\'' +
-            ", price=" + price +
-            '}';
+    return "Bread{" + "breadType='" + breadType + '\'' + ", price=" + price + '}';
   }
 }

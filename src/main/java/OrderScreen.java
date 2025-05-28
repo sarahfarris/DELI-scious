@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class OrderScreen {
@@ -6,6 +7,7 @@ public class OrderScreen {
   public static void newOrder(Scanner scanner) {
     boolean continueApp = true;
     while (continueApp) {
+    try {
       System.out.println("Please select from the following options: ");
       System.out.println(
               "1) Add Sandwich\n2) Add Drink\n3) Add Chips\n4) Checkout\n5) Cancel - Back to Home");
@@ -33,9 +35,13 @@ public class OrderScreen {
           // homeScreen();
           break;
       }
+    } catch (InputMismatchException e) {
+      System.out.println("Invalid input. Please enter a number between 1 and 5.");
+      scanner.nextLine();
     }
     // add everything to order, create order object to have all items, and run again
   }
+    }
 
   public static void displayMenu() {
     // Define column widths for formatting
