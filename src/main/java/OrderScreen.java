@@ -6,14 +6,15 @@ public class OrderScreen {
 
   public static void newOrder(Scanner scanner) {
     boolean continueApp = true;
+    //print current items in order
     while (continueApp) {
     try {
       System.out.println("Please select from the following options: ");
       System.out.println(
-              "1) Add Sandwich\n2) Add Drink\n3) Add Chips\n4) Checkout\n5) Cancel - Back to Home");
+              "1) Add Sandwich\n2) Add Drink\n3) Add Chips\n4) Checkout\n0) Cancel - Back to Home");
       int userChoice = scanner.nextInt();
       switch (userChoice) {
-        case 0: // this doesnt do anything as far as user input goes
+        case 5: // this doesnt do anything as far as user input goes
           displayMenu();
           break;
         case 1:
@@ -24,18 +25,19 @@ public class OrderScreen {
           break;
         case 2:
           Drink.addDrink(scanner);
+            System.out.println("Drink added");
           //do I need a variable to save drink?
           break;
         case 3:
           Chips.addChips();
+            System.out.println("Chips added");
           //do I need a variable to save chips?
           break;
         case 4:
           // checkoutOrder();
           break;
-        case 5:
-          // homeScreen();
-          break;
+        case 0:
+          continueApp = false;
       }
     } catch (InputMismatchException e) {
       System.out.println("Invalid input. Please enter a number between 1 and 5.");

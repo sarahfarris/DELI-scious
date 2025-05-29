@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Topping {
@@ -19,8 +20,6 @@ public class Topping {
   public static ArrayList<Topping> allPaidToppings;
   public static ArrayList<Topping> allFreeToppings;
   static Scanner scanner = new Scanner(System.in);
-  // do I need the size attribute here and in the constructor, so I can have a getter/setter so it
-  // will be detected in the selectToppings methods?
   Sandwich.Size size;
 
   public Topping(String name, double price, ToppingType type) {
@@ -42,7 +41,7 @@ public class Topping {
     allToppings.addAll(getFreeToppings(size));
     return allToppings;
   }
-
+//prints free toppings through displayMenu format
   private static ArrayList<Topping> getFreeToppings(Sandwich.Size size) {
     if (allFreeToppings == null || allFreeToppings.isEmpty()) {
       initializeFreeToppings();
@@ -50,41 +49,48 @@ public class Topping {
     return getCustomerSelectedFreeToppings(size);
   }
 
+  // add free toppings to sandwich
   public static ArrayList<Topping> getCustomerSelectedFreeToppings(Sandwich.Size size) {
     ArrayList<Topping> selectedFreeToppings = new ArrayList<>();
     System.out.println("Please select any free toppings to add:");
     printToppingsMenuForSize(allFreeToppings, size);
     while (true) {
-      System.out.println(
-          "Press m to see the menu again. Please select from the following free toppings by selecting the corresponding number:");
-      String choice = scanner.nextLine();
-      if (choice.equalsIgnoreCase("m")) {
-        printToppingsMenuForSize(allFreeToppings, size);
-      } else {
-        int menuChoice = Integer.parseInt(choice); // took out consume line
-        try {
-          if (menuChoice > 0) {
-            Topping selectedTopping =
-                allFreeToppings.get(
-                    menuChoice - 1); // translates menu numbering (starting with 1) to java indexing
-            // (starting with 0)
-            System.out.println("You selected: " + selectedTopping.getName());
-            selectedFreeToppings.add(selectedTopping);
-          } else if (menuChoice == 0) {
-            System.out.println("Finished selecting toppings");
-            break;
+      try {
+        System.out.println(
+            "Press m to see the menu again. Please select from the following free toppings by selecting the corresponding number:");
+        String choice = scanner.nextLine();
+        if (choice.equalsIgnoreCase("m")) {
+          printToppingsMenuForSize(allFreeToppings, size);
+        } else {
+          int menuChoice = Integer.parseInt(choice); // took out consume line
+          try {
+            if (menuChoice > 0) {
+              Topping selectedTopping =
+                  allFreeToppings.get(
+                      menuChoice
+                          - 1); // translates menu numbering (starting with 1) to java indexing
+              // (starting with 0)
+              System.out.println("You selected: " + selectedTopping.getName());
+              selectedFreeToppings.add(selectedTopping);
+            } else if (menuChoice == 0) {
+              System.out.println("Finished selecting toppings");
+              break;
+            }
+          } catch (Exception e) {
+            System.out.println(
+                "Invalid input. Please select a number between 0 and "
+                    + allFreeToppings.size()
+                    + ".");
           }
-        } catch (Exception e) {
-          System.out.println(
-              "Invalid input. Please select a number between 0 and "
-                  + allFreeToppings.size()
-                  + ".");
         }
+      } catch (NumberFormatException e) {
+        System.out.println("Invalid input.");
       }
     }
     return selectedFreeToppings;
-  }
+    }
 
+// arraylist that will be split based on sandwich size
   private static void initializeFreeToppings() {
     allFreeToppings = new ArrayList<>(); // list initialization
     allFreeToppings.add(new Topping("Lettuce", 0, ToppingType.REGULAR));
@@ -115,7 +121,7 @@ public class Topping {
     return getCustomerSelectedToppings(size);
   }
 
-  // prints the list according to selected sandwich size
+  //  list according to selected sandwich size
   private static void initializePaidToppings(Sandwich.Size size) {
     allPaidToppings = new ArrayList<>(); // list initialization
     if (size == Sandwich.Size.SMALL) {
@@ -174,8 +180,7 @@ public class Topping {
     }
   }
 
-  // creates list that is the customer selected toppings
-  // modified to public to be able to come back to this method to add more toppings
+  // displays paid toppings and allows user to select toppings, toppings printed based on sandwich size
   public static ArrayList<Topping> getCustomerSelectedToppings(Sandwich.Size size) {
     printToppingsMenuForSize(allPaidToppings, size);
     ArrayList<Topping> selectedToppings = new ArrayList<>();
@@ -204,7 +209,6 @@ public class Topping {
                   + "or input m to see the menu again.");
         }
       }
-      // TODO: calculate cost of sandwich and display summary, have ability to go to home screen to
     }
     return selectedToppings;
   }
@@ -221,15 +225,17 @@ public class Topping {
         if (removeChoice > 0) {
           Topping selectedTopping =
               selectedToppings.remove(
-                  removeChoice - 1); // translates menu numbering (starting with 1) to java indexing
+                  removeChoice - 1); // translates menu numbering (starting with 1) to java indexing (starting with 0)
           selectedToppings.remove(selectedTopping);
         } else if (removeChoice == 0) {
           System.out.println("Finished removing toppings.");
           removingToppings = false;
-      }
-      } catch (Exception e) {
+      } else {
+          System.out.println("Number not valid. Please try again.");
+        }
+      } catch (InputMismatchException e) {
         System.out.println("Invalid input.");
-        throw new RuntimeException(e);
+        scanner.nextLine(); // necessary to prevent infinite looping
     }
     }
     }
@@ -239,7 +245,7 @@ public class Topping {
     return name + " ($" + String.format("%.2f", price) + ")";
   }
 
-  // TODO: add sauces and sides to the list, with a line
+
   public static void printToppingsMenuForSize(
       ArrayList<Topping> toppingsList, Sandwich.Size sandwichSize) {
     int indexColWidth = 5; // Width for the index column (e.g., "1.")

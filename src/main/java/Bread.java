@@ -41,8 +41,7 @@ public class Bread {
   // Will the type of bread be saved to the receipt if its not its own ENUM like we did with
   // everything else?
   public static Bread createBread(Scanner scanner, Sandwich.Size size) {
-    Bread bread =
-        new Bread(size);
+    Bread bread = new Bread(size);
     while (true) {
       try {
         System.out.println("What type of bread would you like?");
