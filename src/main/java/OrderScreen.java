@@ -3,10 +3,10 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class OrderScreen {
-
   public static void newOrder(Scanner scanner) {
+    ArrayList<MenuItem> cart = new ArrayList<>();
     boolean continueApp = true;
-    //print current items in order
+    //print current items in order, show "basket' with newest entries first
     while (continueApp) {
     try {
       System.out.println("Please select from the following options: ");
@@ -14,30 +14,30 @@ public class OrderScreen {
               "1) Add Sandwich\n2) Add Drink\n3) Add Chips\n4) Checkout\n0) Cancel - Back to Home");
       int userChoice = scanner.nextInt();
       switch (userChoice) {
-        case 5: // this doesnt do anything as far as user input goes
-          displayMenu();
-          break;
+        case 0:
+          continueApp = false;
         case 1:
           Sandwich sandwich = Sandwich.createSandwich(scanner);
+
           System.out.println("Sandwich added");
 
           //------ variable to save sandwich -----
           break;
         case 2:
-          Drink.addDrink(scanner);
-            System.out.println("Drink added");
-          //do I need a variable to save drink?
+          cart.addFirst(Drink.addDrink(scanner));
+          System.out.println("Drink added");
           break;
         case 3:
-          Chips.addChips();
+          cart.addAll(0, Chips.addChips());
             System.out.println("Chips added");
           //do I need a variable to save chips?
           break;
         case 4:
           // checkoutOrder();
           break;
-        case 0:
-          continueApp = false;
+        case 5: // this doesnt do anything as far as user input goes
+          displayMenu();
+          break;
       }
     } catch (InputMismatchException e) {
       System.out.println("Invalid input. Please enter a number between 1 and 5.");

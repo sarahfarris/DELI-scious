@@ -1,9 +1,9 @@
+import java.awt.*;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-public class Drink {
+public class Drink extends MenuItem {
   Flavor flavor;
-  double drinkPrice;
   static Scanner scanner = new Scanner(System.in);
   private Size size;
 
@@ -17,38 +17,28 @@ public class Drink {
     COKE,
     DIETCOKE,
     SPRITE,
-    DRPEPPER,
+    DRPEPPER("Dr. Pepper"),
     FANTAORANGE,
     ROOTBEER,
     POWERADE,
     LEMONADE,
     HICORANGE,
     WATER;
+
+    private final String name;
+    private Flavor(String name) {
+      this.name = name;
+    }
   }
 
   public Drink(Size size, Flavor flavor) {
     this.size = size;
     this.flavor = flavor;
     switch (size) {
-      case SMALL -> drinkPrice = 2.00;
-      case MEDIUM -> drinkPrice = 2.50;
-      case LARGE -> drinkPrice = 3.00;
+      case SMALL -> price = 2.00;
+      case MEDIUM -> price = 2.50;
+      case LARGE -> price = 3.00;
     }
-    flavor =
-        switch (flavor) {
-          case COKE -> Drink.Flavor.COKE; // this is the only way I can get ENUMS to work
-          case DIETCOKE ->
-              Drink.Flavor.DIETCOKE; // need to modify so it prints with string formatting (captial
-          // letters and spaces)
-          case SPRITE -> Drink.Flavor.SPRITE;
-          case DRPEPPER -> Drink.Flavor.DRPEPPER;
-          case FANTAORANGE -> Drink.Flavor.FANTAORANGE;
-          case ROOTBEER -> Drink.Flavor.ROOTBEER;
-          case POWERADE -> Drink.Flavor.POWERADE;
-          case LEMONADE -> Drink.Flavor.LEMONADE;
-          case HICORANGE -> Drink.Flavor.HICORANGE;
-          case WATER -> Drink.Flavor.WATER;
-        };
   }
 
   public Flavor getFlavor() {
@@ -60,7 +50,7 @@ public class Drink {
   }
 
   public double getDrinkPrice() {
-    return drinkPrice;
+    return super.getPrice();
   }
 
   public static Drink addDrink(Scanner scanner) {

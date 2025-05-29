@@ -6,9 +6,6 @@ public class Topping {
   String name;
   double price;
   ToppingType type;
-  ArrayList<Topping>
-      selectedToppings; // added this so I could add the remove function and refer to the same list,
-                        // do I need it?
 
   enum ToppingType {
     MEAT,
@@ -37,7 +34,7 @@ public class Topping {
     return name;
   }
 
-  public static ArrayList<Topping> getToppings(Sandwich.Size size) {
+  public static ArrayList<Topping> askUserForToppings(Sandwich.Size size) {
     ArrayList<Topping> allToppings = getPaidToppings(size);
     allToppings.addAll(getFreeToppings(size));
     return allToppings;

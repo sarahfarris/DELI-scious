@@ -5,8 +5,8 @@ import java.util.Scanner;
 public class Chips extends MenuItem {
   static Scanner scanner = new Scanner(System.in);
 
-  public Chips(double price) {
-    super(price);
+  public Chips() {
+    super.setPrice(1.50);
   }
 
   // changed return type to an array list of chips to add to order
@@ -24,7 +24,7 @@ public class Chips extends MenuItem {
             nrOfChips = scanner.nextInt();
             //adds nrOfChips to array list, creates the objects of chips correlating to the number
             for (int i = 0; i < nrOfChips; i++) {
-              chips.add(new Chips(1.50));
+              chips.add(new Chips());
             }
             System.out.println(nrOfChips + " chips added");
             addingChips = false;

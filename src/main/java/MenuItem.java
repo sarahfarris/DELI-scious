@@ -1,9 +1,9 @@
 public class MenuItem {
 //    took out name
+    String itemDescription;
     double price;
 
-    public MenuItem(double price) {
-        this.price = price;
+    public MenuItem() {
     }
     public double getPrice() {
         return price;

@@ -8,7 +8,6 @@ public class Sandwich extends MenuItem {
   private Bread bread;
   private ArrayList<Topping> toppings;
   private boolean toasted;
-  private double price;
   private Size size;
 
   public enum Size {
@@ -36,15 +35,10 @@ public class Sandwich extends MenuItem {
   }
 
   public Sandwich() {
-    super(0.0);
   }
 
   public boolean isToasted() {
     return toasted;
-  }
-
-  public void setToasted(boolean toasted) {
-    this.toasted = toasted;
   }
 
   public Bread getBread() {
@@ -63,16 +57,19 @@ public class Sandwich extends MenuItem {
     this.price = price;
   }
 
-  public void addTopping(Topping topping) {
-    toppings.add(topping);
-  }
 
   public void setSize(Size size) {
     this.size = size;
   }
 
-  public void addAllToppings(ArrayList<Topping> allToppings) {
-    this.toppings = allToppings;
+  public void addAllToppings(ArrayList<Topping> allToppings)
+  {
+    if (toppings.isEmpty()) {
+      toppings = allToppings;
+    }
+    else {
+      toppings.addAll(allToppings);
+    }
   }
 
   public static Sandwich createSandwich(Scanner scanner) {
@@ -98,11 +95,15 @@ public class Sandwich extends MenuItem {
         // sandwich building logic
         sandwich.setSize(size);
         sandwich.setBread(Bread.createBread(scanner, size));
-        ArrayList<Topping> allToppings = Topping.getToppings(size);
+        ArrayList<Topping> allToppings = Topping.askUserForToppings(size);
         sandwich.addAllToppings(allToppings);
         sandwich.toastSandwich();
+        sandwich.calculateSandwichPrice();
+        System.out.println(sandwich.toppings);
         sandwich.modifySandwich(sandwich);
         sandwich.calculateSandwichPrice();
+        // sandwich.getDescriptionForReceipt();
+        // itemDescription = good representation of the sandwich (with toppings) + price
         System.out.println(
             "Sandwich price: "
                 + sandwich.getPrice()
@@ -114,7 +115,6 @@ public class Sandwich extends MenuItem {
         scanner.nextLine();
       }
     }
-
     return sandwich;
   }
 
@@ -126,7 +126,7 @@ public class Sandwich extends MenuItem {
       if (userChoice.equals("1") || userChoice.contains("y")) {
         toasted = true;
         toasting = false;
-      } else if (userChoice.equalsIgnoreCase("n")) {
+      } else if (userChoice.equalsIgnoreCase("n") || userChoice.equals("2")) {
         toasted = false;
         toasting = false;
       } else {
@@ -154,12 +154,12 @@ public class Sandwich extends MenuItem {
                 "Would you like to add or remove any toppings?\nA - Add topping\nR - Remove topping\n0 - Continue to Checkout");
         String userConfirmation = scanner.nextLine();
         if (userConfirmation.equalsIgnoreCase("a")) {
-          ArrayList<Topping> addonToppings = Topping.getToppings(sandwich.size);
-          sandwich.addAllToppings(addonToppings); // this SHOULD save modifications to sandwich
+          ArrayList<Topping> addonToppings = Topping.askUserForToppings(sandwich.size);
+          sandwich.addAllToppings(addonToppings);
         } else if (userConfirmation.equalsIgnoreCase("r")) {
           Topping.removeToppingsFromSandwich(sandwich.size, sandwich.toppings);
         } else if (userConfirmation.equalsIgnoreCase("0")) {
-          break;
+          modifying = false;
         } else {
           System.out.println("Invalid input. Please input a corresponding number.");
         }
