@@ -163,6 +163,8 @@ public class Sandwich extends MenuItem {
         } else {
           System.out.println("Invalid input. Please input a corresponding number.");
         }
+      } catch (IndexOutOfBoundsException r) {
+        System.out.println("That number is not valid.");
       } catch (RuntimeException e) {
         System.out.println("Invalid input. Please try again.");
       }

@@ -7,7 +7,8 @@ public class Topping {
   double price;
   ToppingType type;
   ArrayList<Topping>
-      selectedToppings; // added this so I could add the remove function and refer to the same list, do I need it?
+      selectedToppings; // added this so I could add the remove function and refer to the same list,
+                        // do I need it?
 
   enum ToppingType {
     MEAT,
@@ -41,7 +42,8 @@ public class Topping {
     allToppings.addAll(getFreeToppings(size));
     return allToppings;
   }
-//prints free toppings through displayMenu format
+
+  // prints free toppings through displayMenu format
   private static ArrayList<Topping> getFreeToppings(Sandwich.Size size) {
     if (allFreeToppings == null || allFreeToppings.isEmpty()) {
       initializeFreeToppings();
@@ -88,9 +90,9 @@ public class Topping {
       }
     }
     return selectedFreeToppings;
-    }
+  }
 
-// arraylist that will be split based on sandwich size
+  // arraylist that will be split based on sandwich size
   private static void initializeFreeToppings() {
     allFreeToppings = new ArrayList<>(); // list initialization
     allFreeToppings.add(new Topping("Lettuce", 0, ToppingType.REGULAR));
@@ -180,7 +182,8 @@ public class Topping {
     }
   }
 
-  // displays paid toppings and allows user to select toppings, toppings printed based on sandwich size
+  // displays paid toppings and allows user to select toppings, toppings printed based on sandwich
+  // size
   public static ArrayList<Topping> getCustomerSelectedToppings(Sandwich.Size size) {
     printToppingsMenuForSize(allPaidToppings, size);
     ArrayList<Topping> selectedToppings = new ArrayList<>();
@@ -206,45 +209,48 @@ public class Topping {
           System.out.println(
               "Invalid input. Please select a number between 0 and "
                   + allPaidToppings.size()
-                  + "or input m to see the menu again.");
+                  + " or input m to see the menu again.");
         }
       }
     }
     return selectedToppings;
   }
 
-  public static void removeToppingsFromSandwich(Sandwich.Size sandwichSize, ArrayList<Topping> selectedToppings) {
+  public static void removeToppingsFromSandwich(
+      Sandwich.Size sandwichSize, ArrayList<Topping> selectedToppings) {
     boolean removingToppings = true;
     while (removingToppings) {
       // prints the selected toppings by index with same formula as menu
       printToppingsMenuForSize(selectedToppings, sandwichSize);
       // ask user which toppings they would like to remove by index
-      System.out.println("Select the toppings you would like to remove by pressing the corresponding number: ");
+      System.out.println(
+          "Select the toppings you would like to remove by pressing the corresponding number: ");
       try {
         int removeChoice = scanner.nextInt();
         if (removeChoice > 0) {
           Topping selectedTopping =
               selectedToppings.remove(
-                  removeChoice - 1); // translates menu numbering (starting with 1) to java indexing (starting with 0)
+                  removeChoice
+                      - 1); // translates menu numbering (starting with 1) to java indexing
+                            // (starting with 0)
           selectedToppings.remove(selectedTopping);
         } else if (removeChoice == 0) {
           System.out.println("Finished removing toppings.");
           removingToppings = false;
-      } else {
+        } else {
           System.out.println("Number not valid. Please try again.");
         }
       } catch (InputMismatchException e) {
         System.out.println("Invalid input.");
         scanner.nextLine(); // necessary to prevent infinite looping
+      }
     }
-    }
-    }
+  }
 
   @Override
   public String toString() {
     return name + " ($" + String.format("%.2f", price) + ")";
   }
-
 
   public static void printToppingsMenuForSize(
       ArrayList<Topping> toppingsList, Sandwich.Size sandwichSize) {
@@ -294,7 +300,6 @@ public class Topping {
         0,
         "Finish selection",
         ""); // Price column empty for "Finish"
-
     System.out.println("=".repeat(totalWidth));
   }
 }
