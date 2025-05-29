@@ -1,4 +1,3 @@
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -96,24 +95,26 @@ public class Sandwich extends MenuItem {
         } else {
           System.out.println("Invalid input. Please try again");
         }
-
+        // sandwich building logic
         sandwich.setSize(size);
         sandwich.setBread(Bread.createBread(scanner, size));
         ArrayList<Topping> allToppings = Topping.getToppings(size);
         sandwich.addAllToppings(allToppings);
         sandwich.toastSandwich();
+        sandwich.modifySandwich(sandwich);
         sandwich.calculateSandwichPrice();
         System.out.println(
             "Sandwich price: "
                 + sandwich.getPrice()
                 + "\nToppings selected: "
                 + sandwich.toppings); // prints out the selected toppings
-        sandwich.modifySandwich(sandwich);
+        creatingSandwich = false;
       } catch (InputMismatchException e) {
         System.out.println("Invalid input. Please select an option between 1 and 3.");
         scanner.nextLine();
       }
     }
+
     return sandwich;
   }
 
@@ -144,22 +145,21 @@ public class Sandwich extends MenuItem {
   }
 
   // sandwich modification
-  public void modifySandwich(Sandwich sandwich) {
+  public Sandwich modifySandwich(Sandwich sandwich) {
+// modifying sandwich
     boolean modifying = true;
     while (modifying) {
       try {
         System.out.println(
-            "Would you like to add or remove any toppings?\nA - Add topping\nR - Remove topping\n0 - Continue to Checkout");
+                "Would you like to add or remove any toppings?\nA - Add topping\nR - Remove topping\n0 - Continue to Checkout");
         String userConfirmation = scanner.nextLine();
         if (userConfirmation.equalsIgnoreCase("a")) {
-          Topping.getCustomerSelectedToppings(size);
-          Topping.printToppingsMenuForSize(Topping.allPaidToppings, size);
-          Topping.getCustomerSelectedFreeToppings(size);
+          ArrayList<Topping> addonToppings = Topping.getToppings(sandwich.size);
+          sandwich.addAllToppings(addonToppings); // this SHOULD save modifications to sandwich
         } else if (userConfirmation.equalsIgnoreCase("r")) {
-          Topping.removeToppingsFromSandwich(size, sandwich.toppings);
+          Topping.removeToppingsFromSandwich(sandwich.size, sandwich.toppings);
         } else if (userConfirmation.equalsIgnoreCase("0")) {
-          // return to order screen
-          modifying = false;
+          break;
         } else {
           System.out.println("Invalid input. Please input a corresponding number.");
         }
@@ -169,6 +169,7 @@ public class Sandwich extends MenuItem {
         System.out.println("Invalid input. Please try again.");
       }
     }
+    return sandwich;
   }
 
   // may need to edit the toString method to match updates

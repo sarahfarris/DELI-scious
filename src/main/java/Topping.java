@@ -187,7 +187,8 @@ public class Topping {
   public static ArrayList<Topping> getCustomerSelectedToppings(Sandwich.Size size) {
     printToppingsMenuForSize(allPaidToppings, size);
     ArrayList<Topping> selectedToppings = new ArrayList<>();
-    while (true) {
+    boolean addingToppings = true;
+    while (addingToppings) {
       System.out.println(
           "Press m to see the menu again. Please select from the following paid toppings by selecting the corresponding number:");
       String choice = scanner.nextLine();
@@ -203,7 +204,7 @@ public class Topping {
             selectedToppings.add(selectedTopping);
           } else if (menuChoice == 0) {
             System.out.println("Finished selecting paid toppings");
-            break;
+            addingToppings = false;
           }
         } catch (Exception e) {
           System.out.println(
