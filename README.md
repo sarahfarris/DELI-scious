@@ -1,12 +1,12 @@
-# DELI-scious
+# DELI-scious 🍔
 **Sandwich Ordering Application**
 
 Capstone 2 for LTCA
 
 ## *Features*
-- Custom Sandwich Builder that takes user input to create their own sandwich.
-- Signature Sandwiches that the user can pick from, and add/remove toppings as needed.
-- View receipts
+- Custom Sandwich Builder that takes user input to create their own sandwich. 🍔
+- Signature Sandwiches that the user can pick from, and add/remove toppings as needed. 🧀
+- View receipts 🗎
 
 
 ## *How to run*
