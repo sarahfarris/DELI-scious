@@ -31,4 +31,4 @@ Capstone 2 for LTCA
 - Chips: option to add chips to order.
 - Checkout: confirm order, checkout or cancel.
 - BreadTest, ChipsTest, and DrinkTest: unit testing to verify functions are working.
-- transactionHistory.txt: holds the receipt file history
+
