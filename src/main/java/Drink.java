@@ -63,7 +63,7 @@ public class Drink extends MenuItem {
       System.out.println("1) Small     $2.00\n2) Medium     $2.50\n3) Large     3.00");
       try {
         int userChoice = scanner.nextInt();
-        scanner.nextLine(); // consume line, have not tested this to find out if I need it yet
+        scanner.nextLine(); // consume line
         if (userChoice == 1) {
           size = Size.SMALL;
           pickSize = false;

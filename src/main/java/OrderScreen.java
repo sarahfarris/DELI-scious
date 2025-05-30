@@ -8,7 +8,7 @@ public class OrderScreen {
     ArrayList<MenuItem> cart = new ArrayList<>();
     double total = 0.0;
     boolean continueApp = true;
-    // print current items in order, show "basket' with newest entries first
+    // print current items in order, show "basket' with newest entry
     while (continueApp) {
       try {
         if (total > 0) {
@@ -17,7 +17,6 @@ public class OrderScreen {
           System.out.println("----------------------------------");
         }
         System.out.println("Please select from the following options: ");
-        // press 5 to see what's in the cart
         System.out.println(
             "1) Add Sandwich\n2) Add Drink\n3) Add Chips\n4) Checkout\n5) View Cart\n0) Cancel - Back to Home");
         int userChoice = scanner.nextInt();
