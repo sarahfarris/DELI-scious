@@ -1,9 +1,10 @@
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class OrderScreen {
-  public static void newOrder(Scanner scanner) {
+  public static void newOrder(Scanner scanner) throws IOException {
     ArrayList<MenuItem> cart = new ArrayList<>();
     double total = 0.0;
     boolean continueApp = true;
@@ -47,7 +48,11 @@ public class OrderScreen {
             System.out.println("Chips added");
             break;
           case 4:
-            // checkoutOrder();
+            System.out.println("Checking out! Thank you for shopping with us.");
+            ReceiptHandler.saveOrderReceipt(cart, total);
+            cart.clear();
+            total = 0;
+            System.out.println("Hungry for more? Add more!");
             break;
           case 5:
             System.out.println("----------------------------------");
@@ -64,7 +69,6 @@ public class OrderScreen {
             "Invalid input. Please enter a number between 1 and 5, or 0 to go back to Home.");
         scanner.nextLine();
       }
-      // add everything to order, create order object to have all items, and run again
     }
   }
 }

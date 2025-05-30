@@ -354,7 +354,7 @@ public class Sandwich extends MenuItem {
     sb.append(String.format("  - Bread: %s %s%n", bread.getBreadType(), (toasted ? "(Toasted)" : "")));
 
     if (!toppings.isEmpty()) {
-      sb.append("  - Toppings:%n");
+      sb.append("  - Toppings:\n");
       for (Topping topping : toppings) {
         // Only show price if it's not zero for toppings on the receipt line
         if (topping.getPrice() > 0) {
