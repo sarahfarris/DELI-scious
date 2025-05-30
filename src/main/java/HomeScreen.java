@@ -1,10 +1,11 @@
+import java.io.IOException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class HomeScreen {
   private static Scanner scanner = new Scanner(System.in);
 
-  public static void welcomeScreen() {
+  public static void welcomeScreen() throws IOException {
     boolean continueApp = true;
     while (continueApp) {
       try {
@@ -13,8 +14,12 @@ public class HomeScreen {
         int userChoice = scanner.nextInt();
         if (userChoice == 1) {
           OrderScreen.newOrder(scanner);
-          break;
         } else if (userChoice == 2) {
+          scanner.nextLine();
+          System.out.println("Enter the receipt id");
+          String receiptId = scanner.nextLine();
+          ReceiptHandler.getReceiptFromVault(receiptId);
+        } else if (userChoice == 3) {
           System.out.println("Exiting application...");
           continueApp = false;
         }
