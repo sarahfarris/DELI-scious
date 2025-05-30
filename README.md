@@ -21,7 +21,7 @@ Capstone 2 for LTCA
 
 ## *Project Structure*
 - Main: where the application is run.
-- HomeScreen: holds the welcome screen menu.
+- HomeScreen: holds the welcome screen menu.                                                         
 - ReceiptHandler: manages the receipt file.
 - OrderScreen: holds the screen to input orders for multiple types of items.
 - Sandwich: sandwich building menu.
@@ -31,6 +31,11 @@ Capstone 2 for LTCA
 - Chips: option to add chips to order.
 - Checkout: confirm order, checkout or cancel.
 - BreadTest, ChipsTest, and DrinkTest: unit testing to verify functions are working.
+
+
+![Editor _ Mermaid Chart-2025-05-30-060712](https://github.com/user-attachments/assets/9977090b-9956-4d93-b2e8-5f19e6279e7a)
+
+
 
 ## *Menu Screens*
 1. Home Screen
