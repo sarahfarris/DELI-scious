@@ -32,3 +32,21 @@ Capstone 2 for LTCA
 - Checkout: confirm order, checkout or cancel.
 - BreadTest, ChipsTest, and DrinkTest: unit testing to verify functions are working.
 
+## *Menu Screens*
+1. Home Screen
+   
+   ![Delicious_App_Capstone_2-ezgif com-video-to-gif-converter](https://github.com/user-attachments/assets/b089f1f6-ac5f-4d30-a39e-fc13afc1fe93)
+
+2. Order Sandwich
+
+    ![Delicious_App_Capstone_2-ezgif com-video-to-gif-converter (2)](https://github.com/user-attachments/assets/b2a79aff-cf9e-40ab-9bbf-2f343351322e)
+
+  
+3. Checkout
+
+   ![Delicious_App_Capstone_2-ezgif com-video-to-gif-converter (1)](https://github.com/user-attachments/assets/d3cbdbe9-e495-4a61-8ea3-ef159a672de4)
+
+5. View Receipt
+
+   ![Delicious_App_Capstone_2-ezgif com-video-to-gif-converter (3)](https://github.com/user-attachments/assets/b472f0d6-315e-4e1e-82a9-8f8c1fa8b4c3)
+
