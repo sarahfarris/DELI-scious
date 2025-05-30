@@ -17,6 +17,7 @@ public class Topping {
 
   public static ArrayList<Topping> allPaidToppings;
   public static ArrayList<Topping> allFreeToppings;
+  public static ArrayList<Topping> allToppings;
   static Scanner scanner = new Scanner(System.in);
   Sandwich.Size size;
 
@@ -32,6 +33,27 @@ public class Topping {
 
   public String getName() {
     return name;
+  }
+
+  public static Topping getSpecificTopping(String name, Sandwich.Size size) {
+    if (allFreeToppings == null || allFreeToppings.isEmpty()) {
+      initializeFreeToppings();
+    }
+    if (allPaidToppings == null || allPaidToppings.isEmpty()) {
+      initializePaidToppings(size);
+    }
+    if (allToppings == null || allToppings.isEmpty()) {
+      allToppings = new ArrayList<>();
+      allToppings.addAll(allPaidToppings);
+      allToppings.addAll(allFreeToppings);
+    }
+
+    for (Topping t : allToppings) {
+      if (t.getName().equalsIgnoreCase(name)) {
+        return t;
+      }
+    }
+    return null;
   }
 
   public static ArrayList<Topping> askUserForToppings(Sandwich.Size size) {
@@ -90,7 +112,7 @@ public class Topping {
   }
 
   // arraylist that will be split based on sandwich size
-  private static void initializeFreeToppings() {
+  public static void initializeFreeToppings() {
     allFreeToppings = new ArrayList<>(); // list initialization
     allFreeToppings.add(new Topping("Lettuce", 0, ToppingType.REGULAR));
     allFreeToppings.add(new Topping("Peppers", 0, ToppingType.REGULAR));
@@ -121,7 +143,7 @@ public class Topping {
   }
 
   //  list according to selected sandwich size
-  private static void initializePaidToppings(Sandwich.Size size) {
+  public static void initializePaidToppings(Sandwich.Size size) {
     allPaidToppings = new ArrayList<>(); // list initialization
     if (size == Sandwich.Size.SMALL) {
       // meat

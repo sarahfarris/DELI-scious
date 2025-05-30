@@ -14,16 +14,16 @@ public class Drink extends MenuItem {
   }
 
   enum Flavor {
-    COKE,
-    DIETCOKE,
-    SPRITE,
+    COKE("Coke"),
+    DIETCOKE("Diet Coke"),
+    SPRITE("Sprite"),
     DRPEPPER("Dr. Pepper"),
-    FANTAORANGE,
-    ROOTBEER,
-    POWERADE,
-    LEMONADE,
-    HICORANGE,
-    WATER;
+    FANTAORANGE("Fanta Orange"),
+    ROOTBEER("Root Beer"),
+    POWERADE("Powerade"),
+    LEMONADE("Lemonade"),
+    HICORANGE("Hi-C Orange"),
+    WATER("Water");
 
     private final String name;
     private Flavor(String name) {
@@ -118,7 +118,21 @@ public class Drink extends MenuItem {
     }
     drink = new Drink(size, flavor);
     drink.setFlavor(flavor);
-    System.out.println("Drink: " + drink.getFlavor().toString().toLowerCase() + " $" + drink.getDrinkPrice());
+    drink.setItemDescription();
+    System.out.println(drink);
+
     return drink;
+  }
+
+  @Override
+  public String toString() {
+    // Uses the getName() from MenuItem, which is set by the constructor.
+    // If you want to use the flavor's name directly, you can use flavor.name
+    return flavor.name + " (" + size.toString() + ") - $" + String.format("%.2f", getPrice());
+  }
+
+  public void setItemDescription() {
+    // Format for receipt: Name (Size) Price
+    itemDescription = String.format("%-25s $%.2f%n", flavor.name + " (" + size.toString() + ")", getPrice());
   }
 }

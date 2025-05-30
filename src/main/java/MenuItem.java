@@ -1,5 +1,7 @@
+
+
 public class MenuItem {
-//    took out name
+    String name;
     String itemDescription;
     double price;
 
@@ -11,6 +13,9 @@ public class MenuItem {
 
     public void setPrice(double price) {
         this.price = price;
+    }
+    public String getItemDescription(){
+        return itemDescription;
     }
 
     @Override

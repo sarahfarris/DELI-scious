@@ -6,42 +6,29 @@ public class Bread {
   String breadType;
   double price;
 
-  public Bread(Sandwich.Size size) {
+  public Bread(Sandwich.Size size, String type) {
     switch (size) {
       case SMALL -> price = 5.50;
       case MEDIUM -> price = 7;
       case LARGE -> price = 8.50;
     }
+    this.breadType = type;
   }
 
   public String getBreadType() {
     return breadType;
   }
 
-  public void setBreadType(String breadType) {
-    this.breadType = breadType;
-  }
-
-  // not sure if we need these yet as these @override methods are part of implementing Topping
-  public String getType() {
-    return "";
-  }
-
-  public void setType(String type) {}
 
   public double getPrice() {
     return price;
-  }
-
-  public void setPrice(double price) {
-    this.price = price;
   }
 
   // Here we are creating bread for the user
   // Will the type of bread be saved to the receipt if its not its own ENUM like we did with
   // everything else?
   public static Bread createBread(Scanner scanner, Sandwich.Size size) {
-    Bread bread = new Bread(size);
+    String type;
     while (true) {
       try {
         System.out.println("What type of bread would you like?");
@@ -49,16 +36,16 @@ public class Bread {
         int userChoice = scanner.nextInt();
         scanner.nextLine(); // consume line
         if (userChoice == 1) {
-          bread.setBreadType("white");
+          type = "white";
           break;
         } else if (userChoice == 2) {
-          bread.setBreadType("wheat");
+          type = "wheat";
           break;
         } else if (userChoice == 3) {
-          bread.setBreadType("rye");
+          type = "rye";
           break;
         } else if (userChoice == 4) {
-          bread.setBreadType("wrap");
+          type = "wrap";
           break;
         }
       } catch (InputMismatchException e) {
@@ -66,7 +53,7 @@ public class Bread {
         scanner.nextLine(); // keeps loop on track
       }
     }
-    return bread;
+    return new Bread(size, type);
   }
 
   // took out size as I'm not sure how to incorporate that as Enum
