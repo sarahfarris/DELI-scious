@@ -1,11 +1,10 @@
-import java.awt.*;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Drink extends MenuItem {
   Flavor flavor;
   static Scanner scanner = new Scanner(System.in);
-  private Size size;
+  Size size;
 
   enum Size {
     SMALL,
@@ -23,7 +22,7 @@ public class Drink extends MenuItem {
     POWERADE("Powerade"),
     LEMONADE("Lemonade"),
     HICORANGE("Hi-C Orange"),
-    WATER("Water");
+    WATER("Water bottle");
 
     private final String name;
     private Flavor(String name) {
@@ -86,7 +85,7 @@ public class Drink extends MenuItem {
     while (pickFlavor) {
       System.out.println("What flavor Choice drink?");
       System.out.println(
-          "1) Coke\n2) Diet Coke\n3) Sprite\n4) Dr. Pepper\n5) Fanta Orange\n6) Root Beer\n7) Powerade\n8) Lemonade\n9) Hi-C Orange\n0) Water");
+          "1) Coke\n2) Diet Coke\n3) Sprite\n4) Dr. Pepper\n5) Fanta Orange\n6) Root Beer\n7) Powerade\n8) Lemonade\n9) Hi-C Orange\n0) Water Bottle");
       try {
         int flavorChoice = scanner.nextInt();
         if (flavorChoice == 1) {

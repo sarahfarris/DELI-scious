@@ -10,7 +10,7 @@ public class HomeScreen {
     while (continueApp) {
       try {
         System.out.println("Welcome to DELI-scious! Please select from the following options:");
-        System.out.println("1) New Order\n2) Exit");
+        System.out.println("1) New Order\n2) Retrieve receipt\n3) Exit");
         int userChoice = scanner.nextInt();
         if (userChoice == 1) {
           OrderScreen.newOrder(scanner);

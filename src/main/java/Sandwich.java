@@ -76,7 +76,7 @@ public class Sandwich extends MenuItem {
 
   public static Sandwich addSandwich(Scanner scanner) {
     // Ask user what sandwich would they like
-    Sandwich sandwich = new Sandwich(); // changed from null
+    Sandwich sandwich = null;
     Sandwich blt = Sandwich.createBLT();
     Sandwich cheeseSteak = Sandwich.createPhillyCheeseSteak();
     Sandwich veggie = Sandwich.createVeggieDelight();
@@ -96,30 +96,39 @@ public class Sandwich extends MenuItem {
     System.out.println("----------------------------------");
     // print the premade sandwiches with the menu format
     scanner.nextLine(); // consume line
-    String userChoice = scanner.nextLine();
+    while (true) {
 
-
-    // Make a while loop here for incorrect input
-    try {
-      if (userChoice.equalsIgnoreCase("a")) {
-        sandwich = createBLT();
-      } else if (userChoice.equalsIgnoreCase("b")) {
-        sandwich = createPhillyCheeseSteak();
-      } else if (userChoice.equalsIgnoreCase("c")) {
-        sandwich = createVeggieDelight();
-      } else if (userChoice.equalsIgnoreCase("d")) {
-        sandwich = createItalianSub();
-      } else if (userChoice.equalsIgnoreCase("e")) {
-        sandwich = createCustomSandwich(scanner);
+      String userChoice = scanner.nextLine();
+      // Make a while loop here for incorrect input
+      try {
+        if (userChoice.equalsIgnoreCase("a")) {
+          sandwich = createBLT();
+          break;
+        } else if (userChoice.equalsIgnoreCase("b")) {
+          sandwich = createPhillyCheeseSteak();
+          break;
+        } else if (userChoice.equalsIgnoreCase("c")) {
+          sandwich = createVeggieDelight();
+          break;
+        } else if (userChoice.equalsIgnoreCase("d")) {
+          sandwich = createItalianSub();
+          break;
+        } else if (userChoice.equalsIgnoreCase("e")) {
+          sandwich = createCustomSandwich(scanner);
+          break;
+        } else {
+          System.out.println("Invalid input. Please select from the following options:");
+        }
+      } catch (NullPointerException e) {
+        throw new RuntimeException("No sandwich to be added.");
       }
-    } catch (NullPointerException e) {
-      throw new RuntimeException("No sandwich to be added.");
     }
 
-    sandwich.modifySandwich();
-    sandwich.calculateSandwichPrice();
-    sandwich.setItemDescription();
-    return sandwich;
+      sandwich.modifySandwich();
+      sandwich.calculateSandwichPrice();
+      sandwich.setItemDescription();
+      return sandwich;
+
   }
 
   public static Sandwich createCustomSandwich(Scanner scanner) {
@@ -198,7 +207,7 @@ public class Sandwich extends MenuItem {
         System.out.println(
             "Would you like to add or remove any toppings?\nA - Add topping\nR - Remove topping\n0 - Continue to Checkout");
         String userConfirmation = scanner.nextLine();
-        System.out.println("userConf: " + userConfirmation);
+        System.out.println("Sandwich selected: " + userConfirmation);
         System.out.println("sandwich " + this);
         if (userConfirmation.equalsIgnoreCase("a")) {
           ArrayList<Topping> addonToppings = Topping.askUserForToppings(size);
@@ -232,7 +241,6 @@ public class Sandwich extends MenuItem {
   public static Sandwich createBLT() {
     Size size = Size.MEDIUM;
     Bread bread = new Bread(size, "White"); // 8" white bread
-    //    ArrayList<Topping> bltToppings = new ArrayList<>();
     Sandwich blt = new Sandwich();
     blt.name = "BLT";
     blt.setSize(size);

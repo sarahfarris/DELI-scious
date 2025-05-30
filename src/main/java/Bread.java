@@ -55,10 +55,4 @@ public class Bread {
     }
     return new Bread(size, type);
   }
-
-  // took out size as I'm not sure how to incorporate that as Enum
-  @Override
-  public String toString() {
-    return "Bread{" + "breadType='" + breadType + '\'' + ", price=" + price + '}';
-  }
 }

@@ -33,11 +33,11 @@ public class Chips extends MenuItem {
 
   @Override
   public String toString() {
-    return "chips" + " - $" + String.format("%.2f", getPrice());
+    return "Chips" + " - $" + String.format("%.2f", getPrice());
   }
 
   public void setItemDescription() {
     // Format for receipt: Name Price
-    itemDescription = String.format("%-25s $%.2f%n","chips", getPrice());
+    itemDescription = String.format("%-25s $%.2f%n","Chips", getPrice());
   }
 }

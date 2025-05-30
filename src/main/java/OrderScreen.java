@@ -48,11 +48,32 @@ public class OrderScreen {
             System.out.println("Chips added");
             break;
           case 4:
-            System.out.println("Checking out! Thank you for shopping with us.");
-            ReceiptHandler.saveOrderReceipt(cart, total);
-            cart.clear();
-            total = 0;
-            System.out.println("Hungry for more? Add more!");
+            System.out.println("----------------------------------");
+            System.out.println("---------------CART---------------");
+            for (MenuItem m : cart) {
+              System.out.println("----------------------------------");
+              System.out.println(m);
+            }
+            System.out.println("----------------------------------");
+            System.out.println("Confirm your order above. Press 1 to checkout or 2 to cancel.");
+            int userConf = scanner.nextInt();
+            while (true) {
+                if (userConf == 1) {
+                  System.out.println("Checking out! Thank you for shopping with us.");
+                  ReceiptHandler.saveOrderReceipt(cart, total);
+                  cart.clear();
+                  total = 0;
+                  System.out.println("Hungry for more? Add more!");
+                  break;
+                } else if (userConf == 2) {
+                  cart.clear();
+                  total = 0;
+                  break;
+                } else {
+                System.out.println("Invalid input. Please try again.");
+//                break;
+                }
+            }
             break;
           case 5:
             System.out.println("----------------------------------");
