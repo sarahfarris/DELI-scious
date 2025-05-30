@@ -12,19 +12,19 @@ public class BreadTest {
         assertEquals("Medium bread is $7", 7.0, mediumWhiteBread.price, 0);
     }
 
-//    @Test
-//    void testBreadCreationAndPriceForSmallRye() {
-//        // Test 2: Verify correct price for a small-sized rye bread
-//        Bread smallRyeBread = new Bread(Sandwich.Size.SMALL, "Rye");
-//        assertEquals("Rye", smallRyeBread.getBreadType(), "Bread type should be 'Rye'");
-//        assertEquals(5.50, smallRyeBread.getPrice(), 0.001, "Price for Small bread should be 5.50");
-//    }
-//
-//    @Test
-//    void testBreadCreationAndPriceForLargeWrap() {
-//        // Test 3: Verify correct price for a large-sized wrap
-//        Bread largeWrap = new Bread(Sandwich.Size.LARGE, "Wrap");
-//        assertEquals("Wrap", largeWrap.getBreadType(), "Bread type should be 'Wrap'");
-//        assertEquals(8.50, largeWrap.getPrice(), 0.001, "Price for Large bread should be 8.50");
-//    }
+    @Test
+    public void testBreadCreationAndPriceForSmallRye() {
+        // Test 2: Verify correct price for a small-sized rye bread
+        Bread smallRyeBread = new Bread(Sandwich.Size.SMALL, "Rye");
+        assertEquals("Rye", "Bread type should be 'Rye'", smallRyeBread.getBreadType());
+        assertEquals("Price for Small bread should be 5.50", 5.50, smallRyeBread.getPrice(), 0.001);
+    }
+
+    @Test
+    public void testBreadCreationAndPriceForLargeWrap() {
+        // Test 3: Verify correct price for a large-sized wrap
+        Bread largeWrap = new Bread(Sandwich.Size.LARGE, "Wrap");
+        assertEquals("Wrap", "Bread type should be 'Wrap'", largeWrap.getBreadType());
+        assertEquals("Price for Large bread should be 8.50", 8.50, largeWrap.getPrice(), 0.001);
+    }
 }
