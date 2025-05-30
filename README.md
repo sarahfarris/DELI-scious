@@ -33,7 +33,9 @@ Capstone 2 for LTCA
 - BreadTest, ChipsTest, and DrinkTest: unit testing to verify functions are working.
 
 
-![Editor _ Mermaid Chart-2025-05-30-060712](https://github.com/user-attachments/assets/9977090b-9956-4d93-b2e8-5f19e6279e7a)
+
+![Editor _ Mermaid Chart-2025-05-30-060712](https://github.com/user-attachments/assets/51da00be-be30-4e8a-82aa-a5abb718a2d3)
+
 
 
 
